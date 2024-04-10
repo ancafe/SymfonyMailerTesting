@@ -20,15 +20,19 @@ trait MailerContextTrait
     use MailerLoggerAwareTrait;
     use SymfonyMailerContextTrait;
 
-    /** @var MailerAssertions */
+    /**
+     * @var MailerAssertions
+     */
     private $mailerAssertions;
 
-    /** @var MessageEvent|null */
+    /**
+     * @var MessageEvent|null
+     */
     private $selectedMessageEvent;
 
     public function setMailerLogger(MailerLogger $mailerLogger): void
     {
-        $this->mailerLogger     = $mailerLogger;
+        $this->mailerLogger = $mailerLogger;
         $this->mailerAssertions = new MailerAssertions($mailerLogger);
     }
 
@@ -97,7 +101,7 @@ trait MailerContextTrait
         $io->writeln((string) $email->getHtmlBody() ?? '');
 
         $io->section('Attachments');
-        $io->listing(array_map(function (DataPart $attachment): string {
+        $io->listing(array_map(static function (DataPart $attachment): string {
             return $attachment->asDebugString();
         }, $email->getAttachments()));
     }
